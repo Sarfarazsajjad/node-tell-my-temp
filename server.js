@@ -11,6 +11,6 @@ http.createServer(function (req, res) {
     console.log(req.connection.remoteAddress);
     res.write('Hello World!'); //write a response
     res.end(); //end the response
-}).listen(80, function () {
+}).listen(3000, function () {
     console.log("server start at port 3000"); //the server object listens on port 3000
 });
