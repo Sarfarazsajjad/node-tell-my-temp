@@ -9,7 +9,7 @@ var port = process.env.PORT || 3000;
 //create a server object:
 http.createServer(function (req, res) {
     console.log(req.connection.remoteAddress);
-    let response = req.connection.remoteAddress;
+    let response = req.connection.remoteAddress +" "+ req.ip;
     res.write(response); //write a response
     res.end(); //end the response
 }).listen(port, function () {
