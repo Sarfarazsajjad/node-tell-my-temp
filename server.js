@@ -11,7 +11,7 @@ app.set("PORT", PORT);
 
 app.get('/', function (req, res) {
 
-    let apiKey = 'd05a110e78ce5a43d04036bcd50c2af4';
+    let apiKey = 'd05a110e78ce5a43d04036bcd50c2af4'; //https://home.openweathermap.org/api_keys
     console.log(req.ipInfo);
     let city = req.ipInfo.city;
 
