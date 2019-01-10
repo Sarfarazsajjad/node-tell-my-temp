@@ -9,7 +9,8 @@ var port = process.env.PORT || 3000;
 //create a server object:
 http.createServer(function (req, res) {
     console.log(req.connection.remoteAddress);
-    res.write('Hello World!'); //write a response
+    let response = req.connection.remoteAddress;
+    res.write(response); //write a response
     res.end(); //end the response
 }).listen(port, function () {
     console.log("server start at port 3000"); //the server object listens on port 3000
