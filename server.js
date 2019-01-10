@@ -9,9 +9,10 @@ var port = process.env.PORT || 3000;
 //create a server object:
 http.createServer(function (req, res) {
     console.log(req.connection.remoteAddress);
-    let response = req.connection.remoteAddress.replace(/^.*:/, '');
+    let ip = req.connection.remoteAddress.replace(/^.*:/, '');
+    let response = ip + " " + geoip.lookup(ip);;
     res.write(response); //write a response
     res.end(); //end the response
 }).listen(port, function () {
-    console.log("server start at port 3000"); //the server object listens on port 3000
+    console.log("server start at port "+[port]); //the server object listens on port 3000
 });
