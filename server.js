@@ -1,25 +1,7 @@
-// var http = require('http');
-// var geoip = require('geoip-lite'); //https://github.com/bluesmoon/node-geoip
-
-// var ip = "39.50.146.186";
-// var geo = geoip.lookup(ip);
-
-// console.log(geo);
-// var port = process.env.PORT || 3000;
-// //create a server object:
-// http.createServer(function (req, res) {
-//     console.log(req.connection.remoteAddress);
-//     let ip = req.connection.remoteAddress.replace(/^.*:/, '');
-//     let response = ip + " " + geoip.lookup(ip);;
-//     res.write(response); //write a response
-//     res.end(); //end the response
-// }).listen(port, function () {
-//     console.log("server start at port "+[port]); //the server object listens on port 3000
-// });
-
 const express = require('express');
 const app = express();
 const expressip = require('express-ip');
+let request = require('request');
 const PORT = process.env.PORT || 7000;
 
 app.use(expressip().getIpInfoMiddleware);
@@ -28,7 +10,24 @@ app.use(expressip().getIpInfoMiddleware);
 app.set("PORT", PORT);
 
 app.get('/', function (req, res) {
-    res.send(req.ipInfo);
+
+    let apiKey = 'd05a110e78ce5a43d04036bcd50c2af4';
+    console.log(req.ipInfo);
+    let city = req.ipInfo.city;
+
+    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
+
+    request(url, function (err, response, body) {
+        if (err) {
+            console.log('error:', error);
+        } else {
+            let weather = JSON.parse(body)
+            console.log(weather)
+            let message = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+            console.log(message);
+            res.send(message);
+        }
+    });
 });
 
 app.listen(app.get('PORT'), function () {
